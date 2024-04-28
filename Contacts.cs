@@ -103,6 +103,81 @@ namespace IContacts
 
         }
     }
+
+private void btnEditing_Click(object sender, EventArgs e)
+        {
+            if (lstContactResult.SelectedItem is BaseContact selectedContact)
+            {
+                using (var dialog = new InputDialogForm("Edit Name or Phone Number:"))
+                {
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+
+                        if (dialog.InputType == InputDialogForm.ContactEditedType.Name)
+                        {
+                            selectedContact.Name = dialog.InputValue;
+                        }
+                        else if (dialog.InputType == InputDialogForm.ContactEditedType.PhoneNumber)
+                        {
+                            selectedContact.PhoneNumber = dialog.InputValue;
+                        }
+
+                        /*selectedContact.Name = dialog.InputValue;
+                        selectedContact.PhoneNumber = dialog.InputValue;*/
+
+                        //PopulateContactBox();
+
+                        lstContactResult.DataSource = null;
+                        lstContactResult.DataSource = allContacts;
+                        lstContactResult.DisplayMember = "Name";
+                        lstContactResult.ValueMember = "Phone Number";
+                    }
+                }
+
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (lstContactResult.SelectedItem is BaseContact selectedContact)
+            {
+                allContacts.Remove(selectedContact);
+
+              /*  lstContactResult.ClearSelected();
+                lstContactResult.SelectedIndexChanged -= lstContactResult_SelectedIndexChanged;
+
+                //contacts.Remove(selectedContact);
+
+                lstContactResult.SelectedIndexChanged += lstContactResult_SelectedIndexChanged;
+
+                //contacts.ResetBindings();//PopulateContactBox();
+
+                if (lstContactResult.Items.Count == 0)
+                {
+                    lstContactResult_SelectedIndexChanged(lstContactResult, EventArgs.Empty);
+                }*/
+
+
+
+            }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            allContacts.Clear();
+            txtName.Text = null;
+            txtPhone.Text = null;
+            cmGroup.Text = null;
+        }
+
+        /*private void lstContactResult_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }*/
+    }
+
+
+
 }
 
 
